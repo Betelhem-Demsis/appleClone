@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Add Product</h2>
+    <form id="productForm">
+      <label for="product_name">Product Name:</label>
+      <input type="text" id="product_name" name="product_name" required />
+
+      <label for="starting_price">Starting Price:</label>
+      <input type="text" id="starting_price" name="starting_price" required />
+
+      <label for="price_range">Price Range:</label>
+      <input type="text" id="price_range" name="price_range" required />
+
+      <label for="brief_description">Brief Description:</label>
+      <textarea id="brief_description" name="brief_description" required></textarea>
+
+      <label for="product_description">Detailed Description:</label>
+      <textarea id="product_description" name="product_description" required></textarea>
+
+      <label for="product_img">Product Image URL:</label>
+      <input type="text" id="product_img" name="product_img" required />
+
+      <label for="product_url">Product URL:</label>
+      <input type="text" id="product_url" name="product_url" required />
+
+      <button type="submit">Add Product</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('productForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = {
+        product_name: document.getElementById('product_name').value,
+        starting_price: document.getElementById('starting_price').value,
+        price_range: document.getElementById('price_range').value,
+        brief_description: document.getElementById('brief_description').value,
+        product_description: document.getElementById('product_description').value,
+        product_img: document.getElementById('product_img').value,
+        product_url: document.getElementById('product_url').value
+      };
+
+      fetch('http://localhost:3000/add-product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.text())
+      .then(data => alert(data))
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
